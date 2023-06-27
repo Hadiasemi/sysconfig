@@ -1,0 +1,3 @@
+{% for item in FirfoxPlugins %}
+"https://addons.mozilla.org/firefox/downloads/latest/{{ item }}/latest.xpi"{{ "," if not loop.last }}
+{% endfor %}

@@ -1,0 +1,23 @@
+---
+- name: create policy directory
+  become: true
+  file:
+    path: '/etc/firefox/policies'
+    state: directory
+
+- name: Updating Firefox Policies
+  become: true
+  vars:
+    FirfoxPlugins:
+      - "foxyproxy-standard"
+      - "darkreader"
+      - "bitwarden-password-manager"
+      - "ublock-origin"
+      - "wappalyzer"
+  template:
+    src: '{{ playbook_dir }}/files/policies.json.j2'
+    dest: '/etc/firefox/policies/policies.json'
+    mode: '0644'
+    owner: root
+    group: root
+

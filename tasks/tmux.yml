@@ -1,0 +1,9 @@
+---
+- name: configure tmux configuration
+  # become: yes
+  become_user: "{{ ansible_user_id }}"
+  copy:
+    src: "../files/tmux.conf"
+    dest: "~/.tmux.conf"
+    force: yes
+

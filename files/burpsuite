@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/lib/jvm/java-11-openjdk-amd64/bin/java  -Djava.awt.headless=true -jar /usr/share/burpsuite/burpsuite.jar

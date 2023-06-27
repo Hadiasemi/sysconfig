@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    Plugins:
+      - GitHub.copilot-nightly
+      - snyk-security.snyk-vulnerability-scanner
+      - ms-python.python
+      - esbenp.prettier-vscode
+
+  pre_tasks:
+  - name: Update and upgrade apt packages
+    become: true
+    apt:
+      upgrade: yes
+      update_cache: yes
+      state: present
+      cache_valid_time: 86400
+      
+  - name: install packages
+    become: true
+    package: 
+      name:
+        - build-essential
+        - zsh
+        - curl
+        - htop
+        - tmux
+        - bat
+        - python3-pip
+        - neovim
+        - dconf-cli
+        - golang
+        - tree
+  tasks:
+    - name: Install FireFox Plugins
+      include: tasks/firefox.yml
+    - name: Install tmux configuration
+      include: tasks/tmux.yml
+    - name: Install vscode
+      include: tasks/vscode.yml
+    - name: configure vim
+      include: tasks/vim.yml
+    - name: configure Interface
+      include: tasks/interface.yml

@@ -1,0 +1,8 @@
+---
+- name: configure vim configuration
+  become_user: "{{ ansible_user_id }}"
+  copy:
+    src: "../files/vimrc_plugins"
+    dest: "~/.vimrc"
+    force: yes
+
