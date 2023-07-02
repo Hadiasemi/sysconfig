@@ -1,46 +1,51 @@
 ---
-  - name: Install psutil
-    become: true
-    package:
-      name: python3-psutil
-      state: present
+- name: Install psutil
+  become: true
+  package:
+    name: python3-psutil
+    state: present
 
-  - name: copy wallpaper file
-    become: true
-    copy:
-      src: files/api.jpg
-      dest: /usr/share/backgrounds/ansible-wallpaper.png
-      owner: root
-      group: root
+- name: copy wallpaper file
+  become: true
+  copy:
+    src: files/api.jpg
+    dest: /usr/share/backgrounds/ansible-wallpaper.png
+    owner: root
+    group: root
 
-  - name: set wallpaper
-    become_user: "{{ lookup('env', 'USER') }}"
-    dconf:
-      key: "/org/gnome/desktop/background/picture-uri"
-      value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
+- name: set wallpaper
+  become_user: "{{ lookup('env', 'USER') }}"
+  dconf:
+    key: "/org/gnome/desktop/background/picture-uri"
+    value: "'file:///usr/share/backgrounds/ansible-wallpaper.png'"
 
-  - name: Set dock position
-    become_user: "{{ lookup('env', 'USER') }}"
-    dconf:
-      key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
-      value: "'BOTTOM'"
+- name: Set dock position
+  become_user: "{{ lookup('env', 'USER') }}"
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dock-position"
+    value: "'BOTTOM'"
+- name: Disable dock panel mode
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.shell:
+    cmd: gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
 
-  - name: Change bar size
-    become_user: "{{ lookup('env', 'USER') }}"
-    dconf:
-      key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size"
-      value: "32"
-  - name: Set dock to empty
-    become: yes
-    become_user: "{{ lookup('env', 'USER') }}"
-    dconf:
-      key: "/org/gnome/shell/favorite-apps" 
-      value: "['']"
-  - name: Set launcher favorites
-    become: yes
-    become_user: "{{ lookup('env', 'USER') }}"
-    dconf:
-      key: "/org/gnome/shell/favorite-apps" 
-      value: "['firefox_firefox.desktop', 'org.gnome.Terminal.desktop']"
+
+- name: Change bar size
+  become_user: "{{ lookup('env', 'USER') }}"
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/dash-max-icon-size"
+    value: "32"
+- name: Set dock to empty
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  dconf:
+    key: "/org/gnome/shell/favorite-apps" 
+    value: "['']"
+- name: Set launcher favorites
+  become: yes
+  become_user: "{{ lookup('env', 'USER') }}"
+  dconf:
+    key: "/org/gnome/shell/favorite-apps" 
+    value: "['firefox_firefox.desktop', 'org.gnome.Terminal.desktop', 'install4j_165jh5m-zap.sh.desktop', 'install4j_tmnpg7-BurpSuiteCommunity.desktop']"
 
 
