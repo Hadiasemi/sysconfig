@@ -29,6 +29,12 @@
   ansible.builtin.shell:
     cmd: gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
 
+- name: Auto hide dock panel mode
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.shell:
+    cmd: gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false  &&
+      gsettings set org.gnome.shell.extensions.dash-to-dock autohide true
+
 
 - name: Change bar size
   become_user: "{{ lookup('env', 'USER') }}"
